@@ -10,6 +10,7 @@ namespace DalamudPluginProjectTemplate
     {
         private DalamudPluginInterface pluginInterface;
         private PluginConfiguration config;
+        private PluginUI ui;
 
         public string Name => "Your Plugin's Display Name";
 
@@ -21,8 +22,13 @@ namespace DalamudPluginProjectTemplate
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;
+
             // If your plugin doesn't need a configuration, you can safely remove all references to this variable and class.
             this.config = (PluginConfiguration)this.pluginInterface.GetPluginConfig() ?? new PluginConfiguration();
+
+            // Likewise here.
+            this.ui = new PluginUI();
+            this.pluginInterface.UiBuilder.OnBuildUi += this.ui.Draw;
 
             AddComandHandlers();
         }
@@ -85,6 +91,9 @@ namespace DalamudPluginProjectTemplate
                 RemoveCommandHandlers();
                 // You may not want to save a configuration until after you're done tweaking the class layout.
                 //this.pluginInterface.SavePluginConfig(this.config);
+
+                this.pluginInterface.UiBuilder.OnBuildUi -= this.ui.Draw;
+
                 this.pluginInterface.Dispose();
             }
         }
