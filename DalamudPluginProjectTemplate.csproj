@@ -2,27 +2,30 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="Dalamud">
-      <HintPath>..\Dalamud\Dalamud\bin\Debug\Dalamud.dll</HintPath>
+      <HintPath>..\..\Dalamud\Dalamud\bin\Debug\Dalamud.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="ImGui.NET">
-      <HintPath>..\Dalamud\Dalamud\bin\Debug\ImGui.NET.dll</HintPath>
+      <HintPath>..\..\Dalamud\Dalamud\bin\Debug\ImGui.NET.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="ImGuiScene">
-      <HintPath>..\Dalamud\Dalamud\bin\Debug\ImGuiScene.dll</HintPath>
+      <HintPath>..\..\Dalamud\Dalamud\bin\Debug\ImGuiScene.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Lumina">
-      <HintPath>..\Dalamud\Dalamud\bin\Debug\Lumina.dll</HintPath>
+      <HintPath>..\..\Dalamud\Dalamud\bin\Debug\Lumina.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Dalamud\Dalamud\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\Dalamud\Dalamud\bin\Debug\Newtonsoft.Json.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
