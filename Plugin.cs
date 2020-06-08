@@ -7,6 +7,7 @@ namespace DalamudPluginProjectTemplate
     public class Plugin : IDalamudPlugin
     {
         private DalamudPluginInterface pluginInterface;
+        private PluginCommandManager<Plugin> commandManager;
         private PluginConfiguration config;
         private PluginUI ui;
 
@@ -22,6 +23,8 @@ namespace DalamudPluginProjectTemplate
             // Likewise here.
             this.ui = new PluginUI();
             this.pluginInterface.UiBuilder.OnBuildUi += this.ui.Draw;
+
+            this.commandManager = new PluginCommandManager<Plugin>(this, this.pluginInterface);
         }
 
         [Command("/example1")]
