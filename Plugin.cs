@@ -45,6 +45,8 @@ namespace DalamudPluginProjectTemplate
         {
             if (disposing)
             {
+                this.commandManager.Dispose();
+
                 // You may not want to save a configuration until after you're done tweaking the class layout.
                 //this.pluginInterface.SavePluginConfig(this.config);
 
