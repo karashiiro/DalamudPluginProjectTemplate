@@ -1,0 +1,85 @@
+﻿// ReSharper disable ForCanBeConvertedToForeach
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Dalamud.Game.Command;
+using Dalamud.Plugin;
+using DalamudPluginProjectTemplate.Attributes;
+
+namespace DalamudPluginProjectTemplate
+{
+    public class PluginCommandManager<THost> : IDisposable
+    {
+        private readonly DalamudPluginInterface pluginInterface;
+        private readonly (string, CommandInfo)[] pluginCommands;
+
+        public PluginCommandManager(THost host, DalamudPluginInterface pluginInterface)
+        {
+            this.pluginInterface = pluginInterface;
+
+            #region Command Registration
+            this.pluginCommands = host.GetType().GetMethods()
+                .Where(method => method.GetCustomAttribute<CommandAttribute>() != null)
+                .SelectMany(method => GetCommandInfoTuple((CommandInfo.HandlerDelegate)Delegate.CreateDelegate(typeof(CommandInfo.HandlerDelegate), host, method)))
+                .ToArray();
+            #endregion
+
+            AddComandHandlers();
+        }
+
+        // http://codebetter.com/patricksmacchia/2008/11/19/an-easy-and-efficient-way-to-improve-net-code-performances/
+        // Benchmarking this myself gave similar results, so I'm doing this to somewhat counteract using reflection to access command attributes.
+        // I like the convenience of attributes, but in principle it's a bit slower to use them as opposed to just initializing CommandInfos directly.
+        // It's usually sub-1 millisecond anyways, though. It probably doesn't matter at all.
+        private void AddComandHandlers()
+        {
+            for (var i = 0; i < this.pluginCommands.Length; i++)
+            {
+                var (command, commandInfo) = this.pluginCommands[i];
+                this.pluginInterface.CommandManager.AddHandler(command, commandInfo);
+            }
+        }
+
+        private void RemoveCommandHandlers()
+        {
+            for (var i = 0; i < this.pluginCommands.Length; i++)
+            {
+                var (command, _) = this.pluginCommands[i];
+                this.pluginInterface.CommandManager.RemoveHandler(command);
+            }
+        }
+
+        public void Dispose()
+        {
+            RemoveCommandHandlers();
+        }
+
+        private static IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(CommandInfo.HandlerDelegate handlerDelegate)
+        {
+            var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
+            var aliases = handlerDelegate.Method.GetCustomAttribute<AliasAttribute>();
+            var helpMessage = handlerDelegate.Method.GetCustomAttribute<HelpMessageAttribute>();
+            var showInHelp = handlerDelegate.Method.GetCustomAttribute<ShowInHelpAttribute>();
+
+            var commandInfo = new CommandInfo(handlerDelegate)
+            {
+                HelpMessage = helpMessage?.HelpMessage ?? string.Empty,
+                ShowInHelp = showInHelp != null,
+            };
+
+            var commandInfoTuples = new List<(string, CommandInfo)> { (command.Command, commandInfo) };
+            if (aliases != null)
+            {
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                for (var i = 0; i < aliases.Aliases.Length; i++)
+                {
+                    commandInfoTuples.Add((aliases.Aliases[i], commandInfo));
+                }
+            }
+
+            return commandInfoTuples;
+        }
+    }
+}
