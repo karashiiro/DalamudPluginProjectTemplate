@@ -5,6 +5,7 @@ using System.Reflection;
 using Dalamud.Game.Command;
 using Dalamud.Plugin;
 using DalamudPluginProjectTemplate.Attributes;
+using static Dalamud.Game.Command.CommandInfo;
 // ReSharper disable ForCanBeConvertedToForeach
 
 namespace DalamudPluginProjectTemplate
@@ -21,7 +22,7 @@ namespace DalamudPluginProjectTemplate
             #region Command Registration
             this.pluginCommands = host.GetType().GetMethods()
                 .Where(method => method.GetCustomAttribute<CommandAttribute>() != null)
-                .SelectMany(method => GetCommandInfoTuple((CommandInfo.HandlerDelegate)Delegate.CreateDelegate(typeof(CommandInfo.HandlerDelegate), host, method)))
+                .SelectMany(method => GetCommandInfoTuple((HandlerDelegate)Delegate.CreateDelegate(typeof(HandlerDelegate), host, method)))
                 .ToArray();
             #endregion
 
@@ -55,7 +56,7 @@ namespace DalamudPluginProjectTemplate
             RemoveCommandHandlers();
         }
 
-        private static IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(CommandInfo.HandlerDelegate handlerDelegate)
+        private static IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(HandlerDelegate handlerDelegate)
         {
             var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
             var aliases = handlerDelegate.Method.GetCustomAttribute<AliasesAttribute>();
