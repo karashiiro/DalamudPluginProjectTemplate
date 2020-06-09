@@ -3,11 +3,11 @@
 namespace DalamudPluginProjectTemplate.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class AliasAttribute : Attribute
+    public class AliasesAttribute : Attribute
     {
         public string[] Aliases { get; }
 
-        public AliasAttribute(params string[] aliases)
+        public AliasesAttribute(params string[] aliases)
         {
             Aliases = aliases;
         }

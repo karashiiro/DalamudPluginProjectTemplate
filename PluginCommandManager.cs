@@ -1,12 +1,11 @@
-﻿// ReSharper disable ForCanBeConvertedToForeach
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Dalamud.Game.Command;
 using Dalamud.Plugin;
 using DalamudPluginProjectTemplate.Attributes;
+// ReSharper disable ForCanBeConvertedToForeach
 
 namespace DalamudPluginProjectTemplate
 {
@@ -59,7 +58,7 @@ namespace DalamudPluginProjectTemplate
         private static IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(CommandInfo.HandlerDelegate handlerDelegate)
         {
             var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
-            var aliases = handlerDelegate.Method.GetCustomAttribute<AliasAttribute>();
+            var aliases = handlerDelegate.Method.GetCustomAttribute<AliasesAttribute>();
             var helpMessage = handlerDelegate.Method.GetCustomAttribute<HelpMessageAttribute>();
             var showInHelp = handlerDelegate.Method.GetCustomAttribute<ShowInHelpAttribute>();
 
@@ -69,6 +68,7 @@ namespace DalamudPluginProjectTemplate
                 ShowInHelp = showInHelp != null,
             };
 
+            // Create list of tuples that will be filled with one tuple per alias, in addition to the base command tuple.
             var commandInfoTuples = new List<(string, CommandInfo)> { (command.Command, commandInfo) };
             if (aliases != null)
             {
