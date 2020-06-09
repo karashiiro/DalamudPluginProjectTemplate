@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Dalamud.Game.Command;
+using Dalamud.Plugin;
+using DalamudPluginProjectTemplate.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Dalamud.Game.Command;
-using Dalamud.Plugin;
-using DalamudPluginProjectTemplate.Attributes;
 using static Dalamud.Game.Command.CommandInfo;
 // ReSharper disable ForCanBeConvertedToForeach
 
@@ -14,17 +14,17 @@ namespace DalamudPluginProjectTemplate
     {
         private readonly DalamudPluginInterface pluginInterface;
         private readonly (string, CommandInfo)[] pluginCommands;
+        private readonly THost host;
 
         public PluginCommandManager(THost host, DalamudPluginInterface pluginInterface)
         {
             this.pluginInterface = pluginInterface;
+            this.host = host;
 
-            #region Command Registration
             this.pluginCommands = host.GetType().GetMethods()
                 .Where(method => method.GetCustomAttribute<CommandAttribute>() != null)
-                .SelectMany(method => GetCommandInfoTuple((HandlerDelegate)Delegate.CreateDelegate(typeof(HandlerDelegate), host, method)))
+                .SelectMany(GetCommandInfoTuple)
                 .ToArray();
-            #endregion
 
             AddComandHandlers();
         }
@@ -51,13 +51,10 @@ namespace DalamudPluginProjectTemplate
             }
         }
 
-        public void Dispose()
+        private IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(MethodInfo method)
         {
-            RemoveCommandHandlers();
-        }
+            var handlerDelegate = (HandlerDelegate)Delegate.CreateDelegate(typeof(HandlerDelegate), this.host, method);
 
-        private static IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(HandlerDelegate handlerDelegate)
-        {
             var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
             var aliases = handlerDelegate.Method.GetCustomAttribute<AliasesAttribute>();
             var helpMessage = handlerDelegate.Method.GetCustomAttribute<HelpMessageAttribute>();
@@ -81,6 +78,11 @@ namespace DalamudPluginProjectTemplate
             }
 
             return commandInfoTuples;
+        }
+
+        public void Dispose()
+        {
+            RemoveCommandHandlers();
         }
     }
 }
