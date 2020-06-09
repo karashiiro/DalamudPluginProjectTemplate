@@ -19,6 +19,7 @@ namespace DalamudPluginProjectTemplate
 
             // If your plugin doesn't need a configuration, you can safely remove all references to this variable and class.
             this.config = (PluginConfiguration)this.pluginInterface.GetPluginConfig() ?? new PluginConfiguration();
+            this.config.Initialize(this.pluginInterface);
 
             // Likewise here.
             this.ui = new PluginUI();
