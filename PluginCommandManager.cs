@@ -21,7 +21,7 @@ namespace DalamudPluginProjectTemplate
             this.pluginInterface = pluginInterface;
             this.host = host;
 
-            this.pluginCommands = host.GetType().GetMethods()
+            this.pluginCommands = host.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
                 .Where(method => method.GetCustomAttribute<CommandAttribute>() != null)
                 .SelectMany(GetCommandInfoTuple)
                 .ToArray();
