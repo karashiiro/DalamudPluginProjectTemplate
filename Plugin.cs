@@ -30,7 +30,6 @@ namespace DalamudPluginProjectTemplate
 
         [Command("/example1")]
         [HelpMessage("Example help message.")]
-        [ShowInHelp]
         public void ExampleCommand1(string command, string args)
         {
             // You may want to assign these references to private variables for convenience.

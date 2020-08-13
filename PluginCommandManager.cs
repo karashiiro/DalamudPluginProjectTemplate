@@ -26,14 +26,14 @@ namespace DalamudPluginProjectTemplate
                 .SelectMany(GetCommandInfoTuple)
                 .ToArray();
 
-            AddComandHandlers();
+            AddCommandHandlers();
         }
 
         // http://codebetter.com/patricksmacchia/2008/11/19/an-easy-and-efficient-way-to-improve-net-code-performances/
         // Benchmarking this myself gave similar results, so I'm doing this to somewhat counteract using reflection to access command attributes.
         // I like the convenience of attributes, but in principle it's a bit slower to use them as opposed to just initializing CommandInfos directly.
         // It's usually sub-1 millisecond anyways, though. It probably doesn't matter at all.
-        private void AddComandHandlers()
+        private void AddCommandHandlers()
         {
             for (var i = 0; i < this.pluginCommands.Length; i++)
             {
@@ -58,12 +58,12 @@ namespace DalamudPluginProjectTemplate
             var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
             var aliases = handlerDelegate.Method.GetCustomAttribute<AliasesAttribute>();
             var helpMessage = handlerDelegate.Method.GetCustomAttribute<HelpMessageAttribute>();
-            var showInHelp = handlerDelegate.Method.GetCustomAttribute<ShowInHelpAttribute>();
+            var doNotShowInHelp = handlerDelegate.Method.GetCustomAttribute<DoNotShowInHelpAttribute>();
 
             var commandInfo = new CommandInfo(handlerDelegate)
             {
                 HelpMessage = helpMessage?.HelpMessage ?? string.Empty,
-                ShowInHelp = showInHelp != null,
+                ShowInHelp = doNotShowInHelp == null,
             };
 
             // Create list of tuples that will be filled with one tuple per alias, in addition to the base command tuple.
