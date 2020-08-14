@@ -52,4 +52,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Plugin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
