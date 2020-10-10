@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace DalamudPluginProjectTemplate
 {
-    public class PluginConfiguration : IPluginConfiguration
+    public class Configuration : IPluginConfiguration
     {
         public int Version { get; set; }
 
