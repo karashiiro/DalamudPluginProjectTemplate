@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DalamudPackager" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Dalamud">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks')">$(AppData)\XIVLauncher\addon\Hooks\Dalamud.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Dalamud.dll</HintPath>
@@ -50,12 +54,6 @@
       <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Newtonsoft.Json.dll</HintPath>
       <Private>false</Private>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Plugin.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
