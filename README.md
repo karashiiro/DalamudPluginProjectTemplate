@@ -2,7 +2,7 @@
 An opinionated Visual Studio project template for Dalamud plugins, with attributes for more maintainable command setup and teardown.
 
 ## Attributes
-This template also includes an attribute framework reminiscent of [Discord.Net](https://github.com/discord-net/Discord.Net).
+This template includes an attribute framework reminiscent of [Discord.Net](https://github.com/discord-net/Discord.Net).
 
 ```csharp
 [Command("/example1")]
