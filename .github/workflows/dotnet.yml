@@ -20,6 +20,7 @@ jobs:
       run: |
         cd ..
         curl -O https://goatcorp.github.io/dalamud-distrib/latest.zip
+        mkdir Dalamud
         unzip latest.zip -d ./Dalamud/bin
     - uses: actions/checkout@v2
     - name: Restore dependencies
