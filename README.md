@@ -28,3 +28,6 @@ This automatically registers and unregisters the methods that they're attached t
 
 ## GitHub Actions
 Running the shell script `DownloadGithubActions.sh` will download some useful GitHub actions for you. You can also delete this file if you have no need for it.
+
+### Current Actions
+  * dotnet build/test
