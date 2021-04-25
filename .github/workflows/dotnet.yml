@@ -7,7 +7,7 @@ on:
     branches: [ main, master ]
 
 jobs:
-  "Build and test":
+  build_and_test:
 
     runs-on: windows-latest
 
