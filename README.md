@@ -6,6 +6,7 @@ This template also includes an attribute framework reminiscent of [Discord.Net](
 
 ```csharp
 [Command("/example1")]
+[Aliases("/ex1", "/e1")]
 [HelpMessage("Example help message.")]
 public void ExampleCommand1(string command, string args)
 {
@@ -13,6 +14,13 @@ public void ExampleCommand1(string command, string args)
     var world = this.pluginInterface.ClientState.LocalPlayer.CurrentWorld.GameData;
     chat.Print($"Hello {world.Name}!");
     PluginLog.Log("Message sent successfully.");
+}
+
+[Command("/example2")]
+[DoNotShowInHelp]
+public void ExampleCommand2(string command, string args)
+{
+    // do nothing
 }
 ```
 
