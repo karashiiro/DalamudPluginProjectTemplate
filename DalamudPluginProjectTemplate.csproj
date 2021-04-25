@@ -15,48 +15,42 @@
     <Reference Include="Dalamud">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Dalamud.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Dalamud.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Dalamud.dll</HintPath>
+      <HintPath Condition="Exists('..\Dalamud\bin')">..\Dalamud\bin\Dalamud.dll</HintPath>
       <HintPath Condition="Exists('..\..\Dalamud\bin')">..\..\Dalamud\bin\Dalamud.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="ImGui.NET">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\ImGui.NET.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\ImGui.NET.dll</HintPath>
+      <HintPath Condition="Exists('..\Dalamud\bin')">..\Dalamud\bin\ImGui.NET.dll</HintPath>
       <HintPath Condition="Exists('..\..\Dalamud\bin')">..\..\Dalamud\bin\ImGui.NET.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="ImGuiScene">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\ImGuiScene.dll</HintPath>
+      <HintPath Condition="Exists('..\Dalamud\bin')">..\Dalamud\bin\ImGuiScene.dll</HintPath>
       <HintPath Condition="Exists('..\..\Dalamud\bin')">..\..\Dalamud\bin\ImGuiScene.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Lumina">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Lumina.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Lumina.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Lumina.dll</HintPath>
+      <HintPath Condition="Exists('..\Dalamud\bin')">..\Dalamud\bin\Lumina.dll</HintPath>
       <HintPath Condition="Exists('..\..\Dalamud\bin')">..\..\Dalamud\bin\Lumina.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Lumina.Excel">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Lumina.Excel.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Lumina.Excel.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Lumina.Excel.dll</HintPath>
+      <HintPath Condition="Exists('..\Dalamud\bin')">..\Dalamud\bin\Lumina.Excel.dll</HintPath>
       <HintPath Condition="Exists('..\..\Dalamud\bin')">..\..\Dalamud\bin\Lumina.Excel.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Newtonsoft.Json.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Newtonsoft.Json.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath Condition="Exists('..\Dalamud\bin')">..\Dalamud\bin\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('..\..\Dalamud\bin')">..\..\Dalamud\bin\Newtonsoft.Json.dll</HintPath>
       <Private>false</Private>
     </Reference>
