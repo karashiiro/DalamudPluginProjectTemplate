@@ -20,7 +20,7 @@ jobs:
       run: |
         cd ..
         curl -O https://goatcorp.github.io/dalamud-distrib/latest.zip
-        unzip -d ./Dalamud/bin
+        unzip latest.zip -d ./Dalamud/bin
     - uses: actions/checkout@v2
     - name: Restore dependencies
       run: dotnet restore
