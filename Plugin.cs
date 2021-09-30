@@ -1,4 +1,10 @@
 ﻿using System;
+using Dalamud.Game;
+using Dalamud.Game.ClientState;
+using Dalamud.Game.Command;
+using Dalamud.Game.Gui;
+using Dalamud.IoC;
+using Dalamud.Logging;
 using Dalamud.Plugin;
 using DalamudPluginProjectTemplate.Attributes;
 
@@ -6,24 +12,37 @@ namespace DalamudPluginProjectTemplate
 {
     public class Plugin : IDalamudPlugin
     {
-        private DalamudPluginInterface pluginInterface;
-        private PluginCommandManager<Plugin> commandManager;
-        private Configuration config;
-        private PluginUI ui;
+        [PluginService]
+        [RequiredVersion("1.0")]
+        private DalamudPluginInterface PluginInterface { get; init; }
+
+        [PluginService]
+        [RequiredVersion("1.0")]
+        private CommandManager Commands { get; init; }
+
+        [PluginService]
+        [RequiredVersion("1.0")]
+        private ChatGui Chat { get; init; }
+
+        [PluginService]
+        [RequiredVersion("1.0")]
+        private ClientState ClientState { get; init; }
+
+        private readonly PluginCommandManager<Plugin> commandManager;
+        private readonly Configuration config;
+        private readonly PluginUI ui;
 
         public string Name => "Your Plugin's Display Name";
 
-        public void Initialize(DalamudPluginInterface pluginInterface)
+        public Plugin()
         {
-            this.pluginInterface = pluginInterface;
-
-            this.config = (Configuration)this.pluginInterface.GetPluginConfig() ?? new Configuration();
-            this.config.Initialize(this.pluginInterface);
+            this.config = (Configuration)PluginInterface.GetPluginConfig() ?? new Configuration();
+            this.config.Initialize(PluginInterface);
 
             this.ui = new PluginUI();
-            this.pluginInterface.UiBuilder.OnBuildUi += this.ui.Draw;
+            PluginInterface.UiBuilder.Draw += this.ui.Draw;
 
-            this.commandManager = new PluginCommandManager<Plugin>(this, this.pluginInterface);
+            this.commandManager = new PluginCommandManager<Plugin>(this, Commands);
         }
 
         [Command("/example1")]
@@ -32,9 +51,8 @@ namespace DalamudPluginProjectTemplate
         {
             // You may want to assign these references to private variables for convenience.
             // Keep in mind that the local player does not exist until after logging in.
-            var chat = this.pluginInterface.Framework.Gui.Chat;
-            var world = this.pluginInterface.ClientState.LocalPlayer.CurrentWorld.GameData;
-            chat.Print($"Hello {world.Name}!");
+            var world = ClientState.LocalPlayer?.CurrentWorld.GameData;
+            Chat.Print($"Hello {world?.Name}!");
             PluginLog.Log("Message sent successfully.");
         }
 
@@ -45,11 +63,9 @@ namespace DalamudPluginProjectTemplate
 
             this.commandManager.Dispose();
 
-            this.pluginInterface.SavePluginConfig(this.config);
+            PluginInterface.SavePluginConfig(this.config);
 
-            this.pluginInterface.UiBuilder.OnBuildUi -= this.ui.Draw;
-
-            this.pluginInterface.Dispose();
+            PluginInterface.UiBuilder.Draw -= this.ui.Draw;
         }
 
         public void Dispose()

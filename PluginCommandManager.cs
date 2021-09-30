@@ -12,13 +12,13 @@ namespace DalamudPluginProjectTemplate
 {
     public class PluginCommandManager<THost> : IDisposable
     {
-        private readonly DalamudPluginInterface pluginInterface;
+        private readonly CommandManager commandManager;
         private readonly (string, CommandInfo)[] pluginCommands;
         private readonly THost host;
 
-        public PluginCommandManager(THost host, DalamudPluginInterface pluginInterface)
+        public PluginCommandManager(THost host, CommandManager commandManager)
         {
-            this.pluginInterface = pluginInterface;
+            this.commandManager = commandManager;
             this.host = host;
 
             this.pluginCommands = host.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
@@ -38,7 +38,7 @@ namespace DalamudPluginProjectTemplate
             for (var i = 0; i < this.pluginCommands.Length; i++)
             {
                 var (command, commandInfo) = this.pluginCommands[i];
-                this.pluginInterface.CommandManager.AddHandler(command, commandInfo);
+                this.commandManager.AddHandler(command, commandInfo);
             }
         }
 
@@ -47,7 +47,7 @@ namespace DalamudPluginProjectTemplate
             for (var i = 0; i < this.pluginCommands.Length; i++)
             {
                 var (command, _) = this.pluginCommands[i];
-                this.pluginInterface.CommandManager.RemoveHandler(command);
+                this.commandManager.RemoveHandler(command);
             }
         }
 

@@ -1,6 +1,10 @@
 # DalamudPluginProjectTemplate
 An opinionated Visual Studio project template for Dalamud plugins, with attributes for more maintainable command setup and teardown.
 
+## Hint paths
+The project file includes hint paths for the dependencies, which are set up to not include much information about the developer's filesystem.
+You may need to adjust these paths yourself, if they don't represent your development environment.
+
 ## Attributes
 This template includes an attribute framework reminiscent of [Discord.Net](https://github.com/discord-net/Discord.Net).
 
