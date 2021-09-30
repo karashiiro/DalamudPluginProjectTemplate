@@ -83,6 +83,7 @@ namespace DalamudPluginProjectTemplate
         public void Dispose()
         {
             RemoveCommandHandlers();
+            GC.SuppressFinalize(this);
         }
     }
 }
