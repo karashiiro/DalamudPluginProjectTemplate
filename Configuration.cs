@@ -1,19 +1,21 @@
 ﻿using Dalamud.Configuration;
 using Dalamud.Plugin;
-using Newtonsoft.Json;
 
 namespace DalamudPluginProjectTemplate
 {
     public class Configuration : IPluginConfiguration
     {
-        public int Version { get; set; }
+        int IPluginConfiguration.Version { get; set; }
 
-        // Add any other properties or methods here.
-        [JsonIgnore] private DalamudPluginInterface pluginInterface;
+        #region Saved configuration values
+        public string CoolText { get; set; }
+        #endregion
 
-        public void Initialize(DalamudPluginInterface pluginInterface)
+        private readonly DalamudPluginInterface pluginInterface;
+
+        public Configuration(DalamudPluginInterface pi)
         {
-            this.pluginInterface = pluginInterface;
+            this.pluginInterface = pi;
         }
 
         public void Save()

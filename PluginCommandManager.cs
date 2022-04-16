@@ -1,12 +1,10 @@
 ﻿using Dalamud.Game.Command;
-using Dalamud.Plugin;
 using DalamudPluginProjectTemplate.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using static Dalamud.Game.Command.CommandInfo;
-// ReSharper disable ForCanBeConvertedToForeach
 
 namespace DalamudPluginProjectTemplate
 {
@@ -28,25 +26,19 @@ namespace DalamudPluginProjectTemplate
 
             AddCommandHandlers();
         }
-
-        // http://codebetter.com/patricksmacchia/2008/11/19/an-easy-and-efficient-way-to-improve-net-code-performances/
-        // Benchmarking this myself gave similar results, so I'm doing this to somewhat counteract using reflection to access command attributes.
-        // I like the convenience of attributes, but in principle it's a bit slower to use them as opposed to just initializing CommandInfos directly.
-        // It's usually sub-1 millisecond anyways, though. It probably doesn't matter at all.
+        
         private void AddCommandHandlers()
         {
-            for (var i = 0; i < this.pluginCommands.Length; i++)
+            foreach (var (command, commandInfo) in this.pluginCommands)
             {
-                var (command, commandInfo) = this.pluginCommands[i];
                 this.commandManager.AddHandler(command, commandInfo);
             }
         }
 
         private void RemoveCommandHandlers()
         {
-            for (var i = 0; i < this.pluginCommands.Length; i++)
+            foreach (var (command, _) in this.pluginCommands)
             {
-                var (command, _) = this.pluginCommands[i];
                 this.commandManager.RemoveHandler(command);
             }
         }
@@ -67,13 +59,12 @@ namespace DalamudPluginProjectTemplate
             };
 
             // Create list of tuples that will be filled with one tuple per alias, in addition to the base command tuple.
-            var commandInfoTuples = new List<(string, CommandInfo)> { (command.Command, commandInfo) };
+            var commandInfoTuples = new List<(string, CommandInfo)> { (command!.Command, commandInfo) };
             if (aliases != null)
             {
-                // ReSharper disable once LoopCanBeConvertedToQuery
-                for (var i = 0; i < aliases.Aliases.Length; i++)
+                foreach (var alias in aliases.Aliases)
                 {
-                    commandInfoTuples.Add((aliases.Aliases[i], commandInfo));
+                    commandInfoTuples.Add((alias, commandInfo));
                 }
             }
 
